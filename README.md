@@ -1,5 +1,6 @@
 # Number Classification API
 This API takes a number and returns interesting mathematical properties and a fun fact.
+https://hng.tech/hire/python-developers
 
 ### Parameters
 number: An integer (positive or negative values accepted)
