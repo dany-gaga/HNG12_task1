@@ -43,42 +43,52 @@ def classify_number(request):
     number_str = request.GET.get('number')  
 
     # Input validation  
-    if not number_str.lstrip('-').isdigit():  # to allow negative numbers  
+    if not number_str.lstrip('-').isdigit():  
         return Response({"number": number_str, "error": True}, status=status.HTTP_400_BAD_REQUEST)  
 
     number = int(number_str)  
-    properties = []  # to store the properties of the number
+    properties = []  
 
-    # Check for Armstrong number only for non-negative integers  
+    # Check for Armstrong number  
     if is_armstrong(number):  
         properties.append("armstrong")  
 
-    # Classify as even or odd (negative numbers included)  
+    # Classify as even or odd  
     if number % 2 == 0:  
         properties.append("even")  
     else:  
         properties.append("odd")  
-    
+
     # Check for primality  
     is_prime_result = is_prime(number) if number >= 0 else False  
 
-    # Constructing the fun fact about the number explicitly  
-    fun_fact = f"{number} is an Armstrong number because " + " + ".join([f"{digit}^{len(str(number))}" for digit in str(number)]) + f" = {number}"  
+    # Calculate digit sum  
+    digit_sum_value = my_digit_sum(number)  
 
-    # Creating the response data with explicit descriptions included in values  
+    # Generate the fun fact correctly for Armstrong numbers or get from API  
+    if is_armstrong(number):  
+        num_str = str(number)  
+        num_digits = len(num_str)  
+        # Generate the power and summation string  
+        power_terms = [f"{digit}^{num_digits}" for digit in num_str]  
+        fun_fact = f"{number} is an Armstrong number because " + " + ".join(power_terms) + f" = {number} // gotten from the numbers API"  
+    else:  
+        fun_fact = get_fun_fact(abs(number))  
+
+    # Creating the response data and including the note for digit_sum  
     response_data = {  
         "number": number,  
         "is_prime": is_prime_result,  
-        "is_perfect": False,  # Placeholder if perfect number check isn't implemented  
+        "is_perfect": False,  # Placeholder  
         "properties": properties,  
-        "digit_sum": my_digit_sum(number) + "// sum of its digits" 
-        "fun_fact": fun_fact + " // gotten from the numbers API"  # Include your commentary directly in the string  
+        "digit_sum": f"{digit_sum_value} // sum of its digits",  # Include the note  
+        "fun_fact": fun_fact  # Use the formatted fun fact  
     }  
 
     return Response(response_data, status=status.HTTP_200_OK)  
 
-
-
 def get_fun_fact(number):  
     response = requests.get(f"http://numbersapi.com/{number}/math")  
-    return response.text if response.status_code == 200 else "No fun fact available."
+    if response.status_code == 200:  
+        return response.text + " // gotten from the numbers API"  # Append the note directly  
+    return "No fun fact available."
