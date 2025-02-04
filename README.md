@@ -37,7 +37,8 @@ The API is deployed on "https://dukpe.pythonanywhere.com/"
 To run the API locally follow this step
 1. Clone the repository: https://github.com/dany-gaga/HNG12_task1
 2. go to the directory: cd HNG12_task1/number_classifier
-3. in your terminal run: python manage.py runserver  
+3. in your terminal run: python manage.py runserver
+4. http://127.0.0.1:8000/api/classify-number?number=371
 
 
 # Endpoint
