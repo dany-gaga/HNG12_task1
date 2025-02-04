@@ -7,7 +7,7 @@ number: An integer (positive or negative values accepted)
 ### Responses
 **200 OK**
 
-Response Format (200 OK):
+'''json
 {
     "number": 371,
     "is_prime": false,
@@ -16,13 +16,15 @@ Response Format (200 OK):
     "digit_sum": "11,  // sum of its digits"
     "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371" //gotten from the numbers API"
 }
-
+'''
 **400 Bad Request**
 
+'''json
 {
     "number": "alphabet",
     "error": true
 }
+'''
 
 ## Deployment
 The API is deployed on "https://dukpe.pythonanywhere.com/"
