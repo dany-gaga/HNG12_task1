@@ -59,29 +59,20 @@ def classify_number(request):
     else:  
         properties.append("odd")  
     
-    # Checking for primality  
+    # Check for primality  
     is_prime_result = is_prime(number) if number >= 0 else False  
 
-    # Fetching the fun fact about the number  
-    fun_fact = get_fun_fact(abs(number))  
-    # Customizing the fun fact: make it specific to Armstrong  
-    if is_armstrong(number):  
-        fun_fact = f"{number} is an Armstrong number because " + " + ".join([f"{digit}^{len(str(number))}" for digit in str(number)]) + f" = {number}"  
-    
-    # Creating the response data  
+    # Constructing the fun fact about the number explicitly  
+    fun_fact = f"{number} is an Armstrong number because " + " + ".join([f"{digit}^{len(str(number))}" for digit in str(number)]) + f" = {number}"  
+
+    # Creating the response data with explicit descriptions included in values  
     response_data = {  
         "number": number,  
         "is_prime": is_prime_result,  
         "is_perfect": False,  # Placeholder if perfect number check isn't implemented  
         "properties": properties,  
-        "digit_sum": {  
-            "value": my_digit_sum(number),  # sum of its digits  
-            "description": "sum of its digits"  
-        },  
-        "fun_fact": {  
-            "value": fun_fact,  
-            "description": "gotten from the numbers API"  
-        }
+        "digit_sum": my_digit_sum(number),  # sum of its digits  
+        "fun_fact": fun_fact + " // gotten from the numbers API"  # Include your commentary directly in the string  
     }  
 
     return Response(response_data, status=status.HTTP_200_OK)  
