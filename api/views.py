@@ -19,6 +19,18 @@ def is_prime(n):
             return False  
     return True  
 
+
+"""a perfect number is a positive integer that is equal to 
+the sum of its proper divisors, which are all of its 
+positive divisors except for the number itself"""
+
+def is_perfect(n):  
+    if n < 1: 
+        return False  
+    divisors_sum = sum(i for i in range(1, n) if n % i == 0)  
+    return divisors_sum == n  
+
+
 """An Armstrong number or narciccistic number is a positive 
 integer that is equal to  the sum of its digits, each raised to the power of the number 
 of digits in the number. 
@@ -59,8 +71,11 @@ def classify_number(request):
     else:  
         properties.append("odd")  
 
-    # Check for primality  
-    is_prime_result = is_prime(number) if number >= 0 else False  
+    # Check for it being a prime number 
+    is_prime_result = is_prime(number) if number >= 0 else False 
+    
+    # Check for perfection  
+    is_perfect_result = is_perfect(number)   
 
     # Calculate digit sum  
     digit_sum_value = my_digit_sum(number)  
@@ -79,7 +94,7 @@ def classify_number(request):
     response_data = {  
         "number": number,  
         "is_prime": is_prime_result,  
-        "is_perfect": False,  # Placeholder  
+        "is_perfect": is_perfect_result,  
         "properties": properties,  
         "digit_sum": f"{digit_sum_value} // sum of its digits",  # Include the note  
         "fun_fact": fun_fact  # Use the formatted fun fact  
