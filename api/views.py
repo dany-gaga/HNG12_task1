@@ -58,25 +58,29 @@ def classify_number(request):
         properties.append("even")  
     else:  
         properties.append("odd")  
-
+    
     # Checking for primality  
-    if number < 0:  
-        is_prime_result = False  # Negative numbers are not prime  
-    else:  
-        is_prime_result = is_prime(number)  
+    is_prime_result = is_prime(number) if number >= 0 else False  
 
-    fun_fact = get_fun_fact(abs(number))  # Use absolute value to fetch fun fact  
-
+    # Fetching the fun fact about the number  
+    fun_fact = get_fun_fact(abs(number))  
+    # Customizing the fun fact: make it specific to Armstrong  
+    if is_armstrong(number):  
+        fun_fact = f"{number} is an Armstrong number because " + " + ".join([f"{digit}^{len(str(number))}" for digit in str(number)]) + f" = {number}"  
+    
+    # Creating the response data  
     response_data = {  
         "number": number,  
         "is_prime": is_prime_result,  
-        "is_perfect": False,  # Placeholder for perfect number check  
+        "is_perfect": False,  # Placeholder if perfect number check isn't implemented  
         "properties": properties,  
         "digit_sum": my_digit_sum(number),  
         "fun_fact": fun_fact  
     }  
 
     return Response(response_data, status=status.HTTP_200_OK)  
+
+
 
 def get_fun_fact(number):  
     response = requests.get(f"http://numbersapi.com/{number}/math")  
