@@ -17,6 +17,7 @@ number: An integer (positive or negative values accepted)
     "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371" //gotten from the numbers API"
 }
 '''
+
 **400 Bad Request**
 
 '''json
