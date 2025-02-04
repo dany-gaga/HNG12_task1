@@ -71,7 +71,7 @@ def classify_number(request):
         "is_prime": is_prime_result,  
         "is_perfect": False,  # Placeholder if perfect number check isn't implemented  
         "properties": properties,  
-        "digit_sum": my_digit_sum(number),  # sum of its digits  
+        "digit_sum": my_digit_sum(number) + "// sum of its digits" 
         "fun_fact": fun_fact + " // gotten from the numbers API"  # Include your commentary directly in the string  
     }  
 
