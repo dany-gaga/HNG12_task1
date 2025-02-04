@@ -6,6 +6,7 @@ number: An integer (positive or negative values accepted)
 
 ### Responses
 **200 OK**
+
 Response Format (200 OK):
 {
     "number": 371,
@@ -15,7 +16,9 @@ Response Format (200 OK):
     "digit_sum": "11,  // sum of its digits"
     "fun_fact": "371 is an Armstrong number because 3^3 + 7^3 + 1^3 = 371" //gotten from the numbers API"
 }
+
 **400 Bad Request**
+
 {
     "number": "alphabet",
     "error": true
