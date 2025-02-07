@@ -32,7 +32,12 @@ number: An integer (positive or negative values accepted)
 The API is deployed on "https://dukpe.pythonanywhere.com/"
 
 ## Requirements
-
+- Python 3.x  
+- Django  
+- Django REST Framework  
+- Requests  
+- django-cors-headers
+  
 ## Usage
 To run the API locally follow this step
 1. Clone the repository: https://github.com/dany-gaga/HNG12_task1
